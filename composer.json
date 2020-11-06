@@ -1,0 +1,25 @@
+{
+    "name": "puviz/linkedin-connect",
+    "description": "Connect multiple LinkedIn account via OAuth using laravel",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Puvishan",
+            "email": "npuvishan@yahoo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Puviz\\LinkedInConnect\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "../../vendor/guzzlehttp/guzzle": "^6.0|^7.0",
+        "illuminate/http": "^6.0|^7.0|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0"
+    }
+}
