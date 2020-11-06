@@ -4,8 +4,7 @@ namespace Puviz\LinkedInConnect;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Puviz\LinkedInConnect\Contracts\Factory;
-use Puviz\LinkedInConnect\LinkedInManager;
+use Puviz\LinkedInConnect\Contracts\LinkedInConnect as LinkedInConnectContract;
 
 class LinkedInServiceProvider extends ServiceProvider
 {
@@ -17,8 +16,8 @@ class LinkedInServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(Factory::class, function ($app) {
-            return new LinkedInManager($app);
+        $this->app->singleton(LinkedInConnectContract::class, function () {
+            return new LinkedInConnect();
         });
     }
 
@@ -30,7 +29,7 @@ class LinkedInServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        $this->mergeConfigFrom(__DIR__.'/../config/linkedin.php', 'linkedin');
+        $this->mergeConfigFrom(__DIR__ . '/../config/linkedin.php', 'linkedin');
 
         if ($this->app->runningInConsole()) {
             $this->registerMigrations();
@@ -38,11 +37,11 @@ class LinkedInServiceProvider extends ServiceProvider
             $this->registerRoutes();
 
             $this->publishes([
-                __DIR__.'/../database/migrations' => database_path('migrations'),
+                __DIR__ . '/../database/migrations' => database_path('migrations'),
             ], 'linkedin-connect-migrations');
 
             $this->publishes([
-                __DIR__.'/../config/linkedin.php' => config_path('linkedin.php'),
+                __DIR__ . '/../config/linkedin.php' => config_path('linkedin.php'),
             ], 'linkedin-connect-config');
 
         }
@@ -55,7 +54,7 @@ class LinkedInServiceProvider extends ServiceProvider
      */
     protected function registerMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     /**
@@ -66,7 +65,7 @@ class LinkedInServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         Route::group($this->routeConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         });
     }
 

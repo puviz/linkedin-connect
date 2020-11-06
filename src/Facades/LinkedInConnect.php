@@ -3,11 +3,10 @@
 namespace Puviz\LinkedInConnect\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Puviz\LinkedInConnect\Contracts\Factory;
+use Puviz\LinkedInConnect\Contracts\LinkedInConnect as LinkedInConnectContract;
 
 /**
- * @method static \Puviz\LinkedInConnect\Contracts\Provider driver(string $driver = null)
- * @see \Puviz\LinkedInConnect\LinkedInManager
+ * @see \Puviz\LinkedInConnect\Contracts\LinkedInConnect
  */
 class LinkedInConnect extends Facade
 {
@@ -18,6 +17,6 @@ class LinkedInConnect extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return Factory::class;
+        return LinkedInConnectContract::class;
     }
 }

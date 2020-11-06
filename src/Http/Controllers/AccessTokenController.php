@@ -13,7 +13,7 @@ class AccessTokenController extends Controller
 
     public function redirectToProvider()
     {
-        return LinkedInConnect::driver('linkedin')->redirect();
+        return LinkedInConnect::redirect();
     }
 
     /**
@@ -23,21 +23,7 @@ class AccessTokenController extends Controller
      */
     public function handleProviderCallback()
     {
-        if (! Auth::check()) {
-            abort (403, 'Only authenticated users can connect new linkedin user.');
-        }
-
-        $user = LinkedInConnect::driver('linkedin')->user();
-        $authUserId = Auth::id();
-
-        LinkedInToken::create([
-            'user_id' => $authUserId,
-            'account_id' => $user->id,
-            'access_token' => $user->token,
-            'expires_in' => $user->expiresIn,
-            'refresh_token' => $user->refreshToken,
-        ]);
-
+        LinkedInConnect::tokenFromCallback();
         return redirect('/');
     }
 }
